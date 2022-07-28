@@ -4,6 +4,18 @@ class Form extends Component {
 
     codeLength = 6;
 
+    constructor(props){
+        super(props);
+        this.state = {
+            force: 8,
+            useNumbers: true,
+            useSymbols: true,
+            useUpperCase: true,
+            useLowerCase: true,
+            thePassword: true
+        }
+    }
+
     generateTheCode(){
         var result = [];
 
@@ -18,6 +30,21 @@ class Form extends Component {
         console.log('theCode', theCode);
 
     }
+
+    handleChange = (event) =>{
+        
+        const value = event.target.value;
+        console.log(this.state.useNumbers, event.target.name, value)
+        this.setState(
+            {
+            [event.target.name]: value
+        }) 
+        // this.setState({ va})
+    }
+    copyPassword(){
+        console.log('copy password')
+    }
+
     render() {
         return (
             <div className="text-start">
@@ -25,25 +52,25 @@ class Form extends Component {
 
 
                     <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" id="numberCheck" />
+                        <input type="checkbox" className="form-check-input" id="numberCheck" name='useNumbers' checked={this.state.useNumbers} onChange={this.handleChange}/>
                             <label className="form-check-label" htmlFor="numberCheck">Números</label>
                     </div>
                     <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" id="symbolCheck" />
-                        <label className="form-check-label" htmlFor="symbolCheck">Simbolos</label>
+                        <input type="checkbox" className="form-check-input" id="symbolCheck" checked={this.state.useSymbols}  onChange={this.handleChange} />
+                        <label className="form-check-label" htmlFor="symbolCheck">Símbolos</label>
                     </div>
 
                     <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" id="upperCheck" />
-                        <label className="form-check-label" htmlFor="upperCheck">MAIUSCULA</label>
+                        <input type="checkbox" className="form-check-input" id="upperCheck"  checked={this.state.useUpperCase}  onChange={this.handleChange}/>
+                        <label className="form-check-label" htmlFor="upperCheck">MAIÚSCULA</label>
                     </div>
 
                     <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" id="lowerCheck" />
-                        <label className="form-check-label" htmlFor="lowerCheck">minuscula</label>
+                        <input type="checkbox" className="form-check-input" id="lowerCheck" checked={this.state.useLowerCase}  onChange={this.handleChange}/>
+                        <label className="form-check-label" htmlFor="lowerCheck">minúscula</label>
                     </div>
                     <div className="mb-3">
-                        <select className="form-select" aria-label="Default select example">
+                        <select value={this.state.force} className="form-select" aria-label="Default select example"  onChange={this.handleChange}>
                             <optgroup label="Weak">
                                 <option value="6">6</option>
                                 <option value="7">7</option>
@@ -183,9 +210,9 @@ class Form extends Component {
                     <div className="mb-3">
                         <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                         <div className="input-group mb-3">
-                            <input type="text" className="form-control" placeholder="Recipient's username"
-                                   aria-label="Recipient's username" aria-describedby="button-addon2" />
-                                <button className="btn btn-outline-secondary" type="button" id="button-addon2">Copiar
+                            <input type="text" className="form-control" placeholder="Sua senha"
+                                   aria-label="Sua senha" aria-describedby="button-addon2" />
+                                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={this.copyPassword}>Copiar
                                 </button>
                         </div>
                     </div>
